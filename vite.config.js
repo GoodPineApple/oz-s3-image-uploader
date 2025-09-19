@@ -4,19 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/', // S3 정적 호스팅용
   build: {
-    outDir: 'dist'
-  },
-  define: {
-    global: 'globalThis',
-  },
-  resolve: {
-    alias: {
-      buffer: 'buffer',
-      process: 'process/browser',
-    },
-  },
-  optimizeDeps: {
-    include: ['aws-sdk']
+    outDir: 'dist',
+    assetsDir: 'assets'
   }
 })

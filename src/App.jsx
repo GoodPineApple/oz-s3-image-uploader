@@ -12,15 +12,19 @@ function App() {
 
   // 컴포넌트 마운트 시 기존 이미지 목록 로드
   useEffect(() => {
+    console.log('🚀 [APP] 컴포넌트 마운트됨, 이미지 목록 로드 시작');
     loadImages();
   }, []);
 
   const loadImages = async () => {
+    console.log('📋 [APP] 이미지 목록 로드 시작');
     setLoading(true);
     const result = await listS3Files();
     if (result.success) {
+      console.log('✅ [APP] 이미지 목록 로드 성공:', result.files.length, '개');
       setImages(result.files);
     } else {
+      console.error('❌ [APP] 이미지 로드 실패:', result.error);
       setMessage(`이미지 로드 실패: ${result.error}`);
     }
     setLoading(false);
@@ -28,26 +32,37 @@ function App() {
 
   const handleFileSelect = (event) => {
     const files = Array.from(event.target.files);
+    console.log('📁 [APP] 파일 선택됨:', files.length, '개 파일');
     files.forEach(uploadFile);
   };
 
   const handleDrop = (event) => {
     event.preventDefault();
     const files = Array.from(event.dataTransfer.files);
+    console.log('🎯 [APP] 파일 드롭됨:', files.length, '개 파일');
     files.forEach(uploadFile);
   };
 
   const handleDragOver = (event) => {
     event.preventDefault();
+    console.log('🎯 [APP] 드래그 오버');
   };
 
   const uploadFile = async (file) => {
+    console.log('📤 [APP] 파일 업로드 시작:', {
+      name: file.name,
+      size: file.size,
+      type: file.type
+    });
+    
     // 이미지 파일만 허용
     if (!file.type.startsWith('image/')) {
+      console.warn('⚠️ [APP] 이미지가 아닌 파일 업로드 시도:', file.type);
       setMessage('이미지 파일만 업로드할 수 있습니다.');
       return;
     }
 
+    console.log('✅ [APP] 이미지 파일 확인됨, 업로드 진행');
     setUploading(true);
     setUploadProgress(0);
     setMessage('');
@@ -57,10 +72,12 @@ function App() {
     });
 
     if (result.success) {
+      console.log('🎉 [APP] 업로드 성공, 이미지 목록 새로고침');
       setMessage('업로드가 완료되었습니다!');
       // 이미지 목록 새로고침
       await loadImages();
     } else {
+      console.error('💥 [APP] 업로드 실패:', result.error);
       setMessage(`업로드 실패: ${result.error}`);
     }
 
@@ -69,14 +86,20 @@ function App() {
   };
 
   const handleDelete = async (key) => {
+    console.log('🗑️ [APP] 이미지 삭제 요청:', key);
     if (window.confirm('이 이미지를 삭제하시겠습니까?')) {
+      console.log('✅ [APP] 삭제 확인됨, 삭제 진행');
       const result = await deleteFromS3(key);
       if (result.success) {
+        console.log('🎉 [APP] 삭제 성공, 이미지 목록 새로고침');
         setMessage('이미지가 삭제되었습니다.');
         await loadImages();
       } else {
+        console.error('💥 [APP] 삭제 실패:', result.error);
         setMessage(`삭제 실패: ${result.error}`);
       }
+    } else {
+      console.log('❌ [APP] 삭제 취소됨');
     }
   };
 
