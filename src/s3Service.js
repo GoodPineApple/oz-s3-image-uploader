@@ -12,13 +12,13 @@ const BUCKET_NAME = import.meta.env.VITE_S3_BUCKET_NAME;
 // 파일을 S3에 업로드하는 함수
 export const uploadToS3 = async (file, onProgress) => {
   try {
-    const fileName = `${Date.now()}-${file.name}`;
+    const fileName = `${Date.now()}-${file.name}`;    // /user-name/file-name
     const uploadParams = {
       Bucket: BUCKET_NAME,
       Key: fileName,
       Body: file,
-      ContentType: file.type,
-      ACL: 'public-read' // 웹에서 접근 가능하도록 설정
+      ContentType: file.type
+      // ACL 제거 - 버킷 정책으로 퍼블릭 액세스 제어
     };
 
     const upload = s3.upload(uploadParams);
