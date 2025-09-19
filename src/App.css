@@ -1,0 +1,231 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem 0;
+}
+
+.upload-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.upload-container h1 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.upload-container p {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.upload-area {
+  border: 3px dashed #667eea;
+  border-radius: 15px;
+  padding: 4rem 2rem;
+  margin: 2rem 0;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-area:hover {
+  border-color: #5a67d8;
+  background: linear-gradient(135deg, #f0f2ff 0%, #e6ebff 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.upload-area.dragover {
+  border-color: #5a67d8;
+  background: linear-gradient(135deg, #e6ebff 0%, #d6e0ff 100%);
+  transform: scale(1.02);
+}
+
+.upload-area.uploading {
+  border-color: #48bb78;
+  background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+}
+
+.upload-input {
+  display: none;
+}
+
+.upload-text {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.upload-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.upload-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.upload-button:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.image-section {
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.image-section h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.image-item {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.image-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.image-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-item:hover img {
+  transform: scale(1.05);
+}
+
+.image-info {
+  padding: 1rem;
+  background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+  color: white;
+}
+
+.image-info p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+
+.image-info p:first-child {
+  font-weight: 600;
+  color: white;
+  font-size: 1rem;
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.delete-button:hover {
+  background: linear-gradient(135deg, #c53030 0%, #9c2626 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.loading {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  color: #e53e3e;
+  background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  margin: 1.5rem 0;
+  border-left: 4px solid #e53e3e;
+  font-weight: 500;
+}
+
+.success {
+  color: #38a169;
+  background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  margin: 1.5rem 0;
+  border-left: 4px solid #38a169;
+  font-weight: 500;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .upload-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .upload-container h1 {
+    font-size: 2rem;
+  }
+  
+  .upload-area {
+    padding: 2rem 1rem;
+  }
+  
+  .image-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
